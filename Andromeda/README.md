@@ -303,38 +303,38 @@ andromedad keys list
 ```
 ##### Зібрати реварди з усіх валідаторів, кому делегували (без комісій)
 ```bash
-andromedad tx distribution withdraw-all-rewards --from wallet --fees 1000uandr --gas=300000 -y
+andromedad tx distribution withdraw-all-rewards --from wallet -y
 ```
 ##### Зібрати реварди з окремого валідатора або реварди + комісію зі свого валідатора
 ```bash
-andromedad tx distribution withdraw-rewards $ANDROMEDA_VALOPER --from wallet --fees 1000uandr --gas=300000 --commission -y
+andromedad tx distribution withdraw-rewards $ANDROMEDA_VALOPER --from wallet --commission -y
 ```
 ##### Заделегувати у свого валідатора (1andr = 1000000uandr)
 ```bash
-andromedad tx staking delegate $ANDROMEDA_VALOPER 1000000uandr --from wallet --fees 1000uandr --gas=300000 -y
+andromedad tx staking delegate $ANDROMEDA_VALOPER 1000000uandr --from wallet -y
 ```
 ##### Переделегувати на іншого валідатора
 ```bash
 # <src-validator-addr> - адреса валідатора з якого зняти делегацію
 # <dst-validator-addr> - адреса валідатора кому передати делегацію
-andromedad tx staking redelegate <src-validator-addr> <dst-validator-addr> 1000000uandr --from wallet --fees 1000uandr --gas=300000 -y
+andromedad tx staking redelegate <src-validator-addr> <dst-validator-addr> 1000000uandr --from wallet -y
 ```
 ###### забрати делегацію 
 ```bash
-andromedad tx staking unbond $ANDROMEDA_VALOPER 1000000uandr --from wallet --fees 1000uandr --gas=300000 -y
+andromedad tx staking unbond $ANDROMEDA_VALOPER 1000000uandr --from wallet -y
 ```
 ##### Відправити монети на іншу адресу
 ```bash
 # <address> - куди відправити
-andromedad tx bank send wallet <address> 1000000uandr --fees 1000uandr --gas=300000 -y
+andromedad tx bank send wallet <address> 1000000uandr -y
 ```
 ##### Вийти з тюрми
 ```bash
-andromedad tx slashing unjail --from wallet --fees 1000uandr --gas=300000 -y
+andromedad tx slashing unjail --from wallet -y
 ```
 ##### Проголосувати (замість 1 вказуємо номер пропозалу)
 ```bash
-andromedad tx gov vote 1 yes --from wallet --fees 1000uandr --gas=300000 -y
+andromedad tx gov vote 1 yes --from wallet -y
 ```
 ##### Перевірити чи проголосували
 ```bash
