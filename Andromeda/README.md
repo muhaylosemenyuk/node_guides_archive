@@ -10,7 +10,7 @@
 6. [Гаманець](https://github.com/muhaylosemenyuk/node_guides/tree/main/Andromeda#%D0%B3%D0%B0%D0%BC%D0%B0%D0%BD%D0%B5%D1%86%D1%8C)
 7. [Валідатор](https://github.com/muhaylosemenyuk/node_guides/tree/main/Andromeda#%D0%B2%D0%B0%D0%BB%D1%96%D0%B4%D0%B0%D1%82%D0%BE%D1%80)
 8. [Резервна копія](https://github.com/muhaylosemenyuk/node_guides/tree/main/Andromeda#%D1%80%D0%B5%D0%B7%D0%B5%D1%80%D0%B2%D0%BD%D0%B0-%D0%BA%D0%BE%D0%BF%D1%96%D1%8F)
-9. [Корисні команди](https://github.com/muhaylosemenyuk/node_guides/tree/main/Andromeda#%D1%80%D0%B5%D0%B7%D0%B5%D1%80%D0%B2%D0%BD%D0%B0-%D0%BA%D0%BE%D0%BF%D1%96%D1%8F)
+9. [Корисні команди](https://github.com/muhaylosemenyuk/node_guides/tree/main/Andromeda#%D0%BA%D0%BE%D1%80%D0%B8%D1%81%D0%BD%D1%96-%D0%BA%D0%BE%D0%BC%D0%B0%D0%BD%D0%B4%D0%B8)
 10. [Видалит ноду](https://github.com/muhaylosemenyuk/node_guides/tree/main/Andromeda#%D1%80%D0%B5%D0%B7%D0%B5%D1%80%D0%B2%D0%BD%D0%B0-%D0%BA%D0%BE%D0%BF%D1%96%D1%8F)
 
 ## Про проєкт
@@ -69,7 +69,7 @@ ANDROMEDA_MONIKER=<your_moniker>
 #### Зберігаємо перемінні в bash
 ```bash
 echo 'export ANDROMEDA_MONIKER='$ANDROMEDA_MONIKER >> $HOME/.bash_profile
-echo "export ANDROMEDA_CHAIN_ID=andromeda-testnet-1" >> $HOME/.bash_profile
+echo "export ANDROMEDA_CHAIN_ID=galileo-3" >> $HOME/.bash_profile
 echo "export ANDROMEDA_PORT=15" >> $HOME/.bash_profile
 source $HOME/.bash_profile
 ```
@@ -303,38 +303,38 @@ andromedad keys list
 ```
 ##### Зібрати реварди з усіх валідаторів, кому делегували (без комісій)
 ```bash
-andromedad tx distribution withdraw-all-rewards --from wallet --fees 1000uandr --gas=300000 -y
+andromedad tx distribution withdraw-all-rewards --from wallet -y
 ```
 ##### Зібрати реварди з окремого валідатора або реварди + комісію зі свого валідатора
 ```bash
-andromedad tx distribution withdraw-rewards $ANDROMEDA_VALOPER --from wallet --fees 1000uandr --gas=300000 --commission -y
+andromedad tx distribution withdraw-rewards $ANDROMEDA_VALOPER --from wallet --commission -y
 ```
 ##### Заделегувати у свого валідатора (1andr = 1000000uandr)
 ```bash
-andromedad tx staking delegate $ANDROMEDA_VALOPER 100000uandr --from wallet --fees 1000uandr --gas=300000 -y
+andromedad tx staking delegate $ANDROMEDA_VALOPER 1000000uandr --from wallet -y
 ```
 ##### Переделегувати на іншого валідатора
 ```bash
 # <src-validator-addr> - адреса валідатора з якого зняти делегацію
 # <dst-validator-addr> - адреса валідатора кому передати делегацію
-andromedad tx staking redelegate <src-validator-addr> <dst-validator-addr> 1000000uandr --from wallet --fees 1000uandr --gas=300000 -y
+andromedad tx staking redelegate <src-validator-addr> <dst-validator-addr> 1000000uandr --from wallet -y
 ```
 ###### забрати делегацію 
 ```bash
-andromedad tx staking unbond $ANDROMEDA_VALOPER 1000000uandr --from wallet --fees 1000uandr --gas=300000 -y
+andromedad tx staking unbond $ANDROMEDA_VALOPER 1000000uandr --from wallet -y
 ```
 ##### Відправити монети на іншу адресу
 ```bash
 # <address> - куди відправити
-andromedad tx bank send wallet <address> 100000uandr --fees 1000uandr --gas=300000 -y
+andromedad tx bank send wallet <address> 1000000uandr -y
 ```
 ##### Вийти з тюрми
 ```bash
-andromedad tx slashing unjail --from wallet --fees 1000uandr --gas=300000 -y
+andromedad tx slashing unjail --from wallet -y
 ```
 ##### Проголосувати (замість 1 вказуємо номер пропозалу)
 ```bash
-andromedad tx gov vote 1 yes --from wallet --fees 1000uandr --gas=300000 -y
+andromedad tx gov vote 1 yes --from wallet -y
 ```
 ##### Перевірити чи проголосували
 ```bash
