@@ -69,7 +69,7 @@ ANDROMEDA_MONIKER=<your_moniker>
 #### Зберігаємо перемінні в bash
 ```bash
 echo 'export ANDROMEDA_MONIKER='$ANDROMEDA_MONIKER >> $HOME/.bash_profile
-echo "export ANDROMEDA_CHAIN_ID=andromeda-testnet-1" >> $HOME/.bash_profile
+echo "export ANDROMEDA_CHAIN_ID=galileo-3" >> $HOME/.bash_profile
 echo "export ANDROMEDA_PORT=15" >> $HOME/.bash_profile
 source $HOME/.bash_profile
 ```
@@ -321,7 +321,7 @@ andromedad tx staking redelegate <src-validator-addr> <dst-validator-addr> 10000
 ```
 ###### забрати делегацію 
 ```bash
-andromedad tx staking unbond $ANDROMEDA_VALOPER 10000000uandr --from wallet --fees 1000uandr --gas=300000 -y
+andromedad tx staking unbond $ANDROMEDA_VALOPER 1000000uandr --from wallet --fees 1000uandr --gas=300000 -y
 ```
 ##### Відправити монети на іншу адресу
 ```bash
