@@ -311,7 +311,7 @@ andromedad tx distribution withdraw-rewards $ANDROMEDA_VALOPER --from wallet --f
 ```
 ##### Заделегувати у свого валідатора (1andr = 1000000uandr)
 ```bash
-andromedad tx staking delegate $ANDROMEDA_VALOPER 100000uandr --from wallet --fees 1000uandr --gas=300000 -y
+andromedad tx staking delegate $ANDROMEDA_VALOPER 1000000uandr --from wallet --fees 1000uandr --gas=300000 -y
 ```
 ##### Переделегувати на іншого валідатора
 ```bash
@@ -321,12 +321,12 @@ andromedad tx staking redelegate <src-validator-addr> <dst-validator-addr> 10000
 ```
 ###### забрати делегацію 
 ```bash
-andromedad tx staking unbond $ANDROMEDA_VALOPER 1000000uandr --from wallet --fees 1000uandr --gas=300000 -y
+andromedad tx staking unbond $ANDROMEDA_VALOPER 10000000uandr --from wallet --fees 1000uandr --gas=300000 -y
 ```
 ##### Відправити монети на іншу адресу
 ```bash
 # <address> - куди відправити
-andromedad tx bank send wallet <address> 100000uandr --fees 1000uandr --gas=300000 -y
+andromedad tx bank send wallet <address> 1000000uandr --fees 1000uandr --gas=300000 -y
 ```
 ##### Вийти з тюрми
 ```bash
