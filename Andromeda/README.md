@@ -2,16 +2,16 @@
 ![image](https://user-images.githubusercontent.com/79005788/219491087-1beda6cb-c4c7-4524-b517-f85a3a843179.png)
 
 ## Зміст
-1. Про проєкт
-2. Нода
-3. Сервер
-4. Снапшот
-5. Addrbook
-6. Гаманець
-7. Валідатор
-8. Резервна копія
-9. Корисні команди
-10. Видалит ноду
+1. [Про проєкт](https://github.com/muhaylosemenyuk/node_guides/tree/main/Andromeda#%D0%BF%D1%80%D0%BE-%D0%BF%D1%80%D0%BE%D1%94%D0%BA%D1%82)
+2. [Сервер](https://github.com/muhaylosemenyuk/node_guides/tree/main/Andromeda#%D1%81%D0%B5%D1%80%D0%B2%D0%B5%D1%80)
+3. [Нода](https://github.com/muhaylosemenyuk/node_guides/tree/main/Andromeda#%D0%BD%D0%BE%D0%B4%D0%B0)
+4. [Снапшот](https://github.com/muhaylosemenyuk/node_guides/tree/main/Andromeda#%D1%81%D0%BD%D0%B0%D0%BF%D1%88%D0%BE%D1%82)
+5. [Addrbook](https://github.com/muhaylosemenyuk/node_guides/tree/main/Andromeda#%D1%81%D0%BD%D0%B0%D0%BF%D1%88%D0%BE%D1%82)
+6. [Гаманець](https://github.com/muhaylosemenyuk/node_guides/tree/main/Andromeda#%D0%B3%D0%B0%D0%BC%D0%B0%D0%BD%D0%B5%D1%86%D1%8C)
+7. [Валідатор](https://github.com/muhaylosemenyuk/node_guides/tree/main/Andromeda#%D0%B2%D0%B0%D0%BB%D1%96%D0%B4%D0%B0%D1%82%D0%BE%D1%80)
+8. [Резервна копія](https://github.com/muhaylosemenyuk/node_guides/tree/main/Andromeda#%D1%80%D0%B5%D0%B7%D0%B5%D1%80%D0%B2%D0%BD%D0%B0-%D0%BA%D0%BE%D0%BF%D1%96%D1%8F)
+9. [Корисні команди](https://github.com/muhaylosemenyuk/node_guides/tree/main/Andromeda#%D1%80%D0%B5%D0%B7%D0%B5%D1%80%D0%B2%D0%BD%D0%B0-%D0%BA%D0%BE%D0%BF%D1%96%D1%8F)
+10. [Видалит ноду](https://github.com/muhaylosemenyuk/node_guides/tree/main/Andromeda#%D1%80%D0%B5%D0%B7%D0%B5%D1%80%D0%B2%D0%BD%D0%B0-%D0%BA%D0%BE%D0%BF%D1%96%D1%8F)
 
 ## Про проєкт
 **Andromeda** — це рівень платформи додатків, який об’єднує всі публічні блокчейни в екосистемі Cosmos. Завдяки нашій величезній бібліотеці смарт-контрактів без коду користувачі можуть використовувати потужність web3.
@@ -24,6 +24,7 @@
 
 ## Сервер
 Мінімальні: 4 CPU / 8 RAM / 100 SSD or NVME
+
 Рекомендовані: 8 CPU / 64 RAM / 1ТБ SSD or NVME
 
 [Webtropia](https://www.webtropia.com/?kwk=251026062204230100165096) - Cloud VPS S (4/8/200) - 4.7 євро/міс
@@ -41,6 +42,8 @@
 [Як орендувати дедік на Hetzner](https://teletype.in/@muhaylo.semenyuk/O0-W-CHHZDm)
 
 ## Нода
+[Зміст](https://github.com/muhaylosemenyuk/node_guides/tree/main/Andromeda#%D0%B7%D0%BC%D1%96%D1%81%D1%82)
+
 #### підготовка сервера
 ```bash
 sudo apt update && sudo apt upgrade -y
@@ -167,6 +170,8 @@ andromedad status 2>&1 | jq "{catching_up: .SyncInfo.catching_up}"
 > "catching_up": false - означає що нода синхронізована
 > [Перевірити висоту](https://andromeda.explorers.guru/)
 ## Снапшот
+[Зміст](https://github.com/muhaylosemenyuk/node_guides/tree/main/Andromeda#%D0%B7%D0%BC%D1%96%D1%81%D1%82)
+
 ```bash
 cd $HOME
 apt install lz4
@@ -177,11 +182,15 @@ curl -o - -L http://andromedad.wasm.stavr.tech:1002/wasm-andromedad.tar.lz4 | lz
 mv $HOME/.andromedad/priv_validator_state.json.backup $HOME/.andromedad/data/priv_validator_state.json
 ```
 ## Addrbook
+[Зміст](https://github.com/muhaylosemenyuk/node_guides/tree/main/Andromeda#%D0%B7%D0%BC%D1%96%D1%81%D1%82)
+
 ```bash
 wget -O $HOME/.andromedad/config/addrbook.json "https://raw.githubusercontent.com/obajay/nodes-Guides/main/AndromedaProtocol/addrbook.json"
 systemctl restart andromedad && journalctl -u andromedad -f -o cat
 ```
 ## Гаманець
+[Зміст](https://github.com/muhaylosemenyuk/node_guides/tree/main/Andromeda#%D0%B7%D0%BC%D1%96%D1%81%D1%82)
+
 #### Створюємо гаманець
 ```bash
 andromedad keys add wallet
@@ -206,6 +215,8 @@ source $HOME/.bash_profile
 andromedad q bank balances $ANDROMEDA_ADDRESS
 ```
 ## Валідатор
+[Зміст](https://github.com/muhaylosemenyuk/node_guides/tree/main/Andromeda#%D0%B7%D0%BC%D1%96%D1%81%D1%82)
+
 #### Створюємо валідатора
 Створити ключ identity можна [тут](https://keybase.io/)
 ```bash
@@ -249,6 +260,8 @@ andromedad tx staking edit-validator \
 ```
 
 ## Резервна копія
+[Зміст](https://github.com/muhaylosemenyuk/node_guides/tree/main/Andromeda#%D0%B7%D0%BC%D1%96%D1%81%D1%82)
+
 Зберігаємо priv_validator_key.json що знаходиться за адресою /root/.andromedad/config/
 
 Перетягуємо мишкою файл з моби
@@ -264,7 +277,8 @@ andromedad tx staking edit-validator \
 scp root@0.0.0.0:/root/.andromedad/config/priv_validator_key.json <Шлях до папки>
 ```
 ## Корисні команди
-Зміст
+[Зміст](https://github.com/muhaylosemenyuk/node_guides/tree/main/Andromeda#%D0%B7%D0%BC%D1%96%D1%81%D1%82)
+
 ##### Перезапустити ноду
 ```bash
 systemctl restart andromedad
@@ -327,6 +341,8 @@ andromedad tx gov vote 1 yes --from wallet --fees 1000uandr --gas=300000 -y
 andromedad q gov vote 1 $ANDROMEDA_ADDRESS
 ```
 ## Видалити ноду
+[Зміст](https://github.com/muhaylosemenyuk/node_guides/tree/main/Andromeda#%D0%B7%D0%BC%D1%96%D1%81%D1%82)
+
 ```bash
 systemctl stop andromedad && \
 systemctl disable andromedad && \
