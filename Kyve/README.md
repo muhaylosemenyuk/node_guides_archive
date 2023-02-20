@@ -1,4 +1,5 @@
 # Kyve | Kaon-1
+## Нода
 #### Оновлюємо репозиторії
     apt update && apt upgrade -y
 #### Качаємо бінарник
@@ -15,6 +16,8 @@
 #### Додаємо піри
     peers="7820d73c4449e0e4328c9fc4437b00aef8de33c2@5.161.195.113:26656"
     sed -i.bak -e "s/^seeds *=.*/seeds = \"$seeds\"/; s/^persistent_peers *=.*/persistent_peers = \"$peers\"/" ~/.kyve/config/config.toml
+#### Включаємо keyring-backend test
+    kyved config keyring-backend test
 #### Включаємо прунінг
     pruning="custom" && \
     pruning_keep_recent="100" && \
@@ -45,3 +48,23 @@
     sudo systemctl restart kyved
 #### Перевірити логи
     sudo journalctl -u kyved -f -o cat
+## Гаманець
+#### Створюємо гаманець
+```bash
+kyved keys add wallet
+```
+#### Відновити гаманець
+```bash
+kyved keys add wallet --recover
+```
+#### Зберігаємо адресу
+###### Замініть <your_address> на адресу вашого гаманця
+```bash
+KYVE_ADDRESS=<your_address>
+echo "export KYVE_ADDRESS=$KYVE_ADDRESS" >> $HOME/.bash_profile
+source $HOME/.bash_profile
+```
+#### Перевірити баланс
+```bash
+kyved q bank balances $ANDROMEDA_ADDRESS
+```
