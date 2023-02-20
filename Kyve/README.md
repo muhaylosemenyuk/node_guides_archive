@@ -58,7 +58,7 @@ kyved keys add wallet
 kyved keys add wallet --recover
 ```
 #### Зберігаємо адресу
-###### Замініть <your_address> на адресу вашого гаманця
+> Замініть <your_address> на адресу вашого гаманця
 ```bash
 KYVE_ADDRESS=<your_address>
 echo "export KYVE_ADDRESS=$KYVE_ADDRESS" >> $HOME/.bash_profile
@@ -66,5 +66,5 @@ source $HOME/.bash_profile
 ```
 #### Перевірити баланс
 ```bash
-kyved q bank balances $ANDROMEDA_ADDRESS
+kyved q bank balances $KYVE_ADDRESS
 ```
