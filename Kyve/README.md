@@ -68,3 +68,17 @@ source $HOME/.bash_profile
 ```bash
 kyved q bank balances $KYVE_ADDRESS
 ```
+## Валідатор
+#### Створити валідатора
+```bash
+kyved tx staking create-validator \
+ --amount 1000000tkyve \
+ --from wallet \
+ --commission-max-change-rate "0.1" \
+ --commission-max-rate "0.2" \
+ --commission-rate "0.1" \
+ --min-self-delegation "1" \
+ --pubkey $(kyved tendermint show-validator) \
+ --moniker $KYVE_MONIKER \
+ --chain-id kaon-1
+```
