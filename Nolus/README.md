@@ -236,11 +236,12 @@ nolusd keys add wallet
 ```bash
 nolusd keys add wallet --recover
 ```
-#### Зберігаємо адресу
-###### Замініть <your_address> на адресу вашого гаманця
+#### Зберігаємо адреси
 ```bash
-NOLUS_ADDRESS=<your_address>
-echo "export ANDROMEDA_ADDRESS=$ANDROMEDA_ADDRESS" >> $HOME/.bash_profile
+NOLUS_ADDRESS=$(nolusd keys show wallet -a)
+NOLUS_VALOPER=$(nolusd keys show wallet --bech val -a)
+echo "export NOLUS_ADDRESS="${NOLUS_ADDRESS} >> $HOME/.bash_profile
+echo "export NOLUS_VALOPER="${NOLUS_VALOPER} >> $HOME/.bash_profile
 source $HOME/.bash_profile
 ```
 #### Кран
@@ -252,49 +253,40 @@ source $HOME/.bash_profile
 nolusd q bank balances $NOLUS_ADDRESS
 ```
 
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
 ## Валідатор
 [Зміст](https://github.com/muhaylosemenyuk/node_guides/tree/main/Andromeda#%D0%B7%D0%BC%D1%96%D1%81%D1%82)
 
 #### Створюємо валідатора
 Створити ключ identity можна [тут](https://keybase.io/)
 ```bash
-andromedad tx staking create-validator \
---amount=1000000uandr \
+nolusd tx staking create-validator \
+--amount=1000000unls \
 --pubkey=$(andromedad tendermint show-validator) \
---moniker=$ANDROMEDA_MONIKER \
+--moniker=$NOLUS_MONIKER \
 --website="Посилання на свій сайт чи сторінку в інтернеті" \
 --identity=<identity> \
 --details="Кілька слів про себе" \
---chain-id=$ANDROMEDA_CHAIN_ID \
+--chain-id=$NOLUS_CHAIN_ID \
 --commission-rate=0.1 \
 --commission-max-rate=0.2 \
 --commission-max-change-rate=0.05 \
 --min-self-delegation=1 \
---fees=1000uandr \
+--fees=1000unls \
 --from=wallet \
 -y
 ```
-Перевіряємо себе в списку в [експлоуері](https://andromeda.explorers.guru/validators)
+Перевіряємо себе в списку в [експлоуері](https://nolus.explorers.guru/)
 
-#### Записуємо valoper_address в bash
-```bash
-# Замінюємо <your_valoper_address> на адресу валідатора, починається на andrvaloper....
-ANDROMEDA_VALOPER=<your_valoper_address> 
-echo "export ANDROMEDA_VALOPER=$ANDROMEDA_VALOPER" >> $HOME/.bash_profile 
-source $HOME/.bash_profile
-```
 #### Редагувати валідатора
 ```bash
-andromedad tx staking edit-validator \
---moniker=$ANDROMEDA_MONIKER \
+nolusd tx staking edit-validator \
+--moniker=$NOLUS_MONIKER \
 --website="Посилання на свій сайт чи сторінку в інтернеті" \
 --identity=<identity> \
 --details="Кілька слів про себе" \
---chain-id=$ANDROMEDA_CHAIN_ID \
+--chain-id=$NOLUS_CHAIN_ID \
 --commission-rate=0.1 \
---fees=1000uandr \
+--fees=1000unls \
 --from=wallet \
 -y
 ```
@@ -302,7 +294,7 @@ andromedad tx staking edit-validator \
 ## Резервна копія
 [Зміст](https://github.com/muhaylosemenyuk/node_guides/tree/main/Andromeda#%D0%B7%D0%BC%D1%96%D1%81%D1%82)
 
-Зберігаємо priv_validator_key.json що знаходиться за адресою /root/.andromedad/config/
+Зберігаємо priv_validator_key.json що знаходиться за адресою /root/.nolus/config/
 
 Перетягуємо мишкою файл з моби
 
@@ -314,81 +306,81 @@ andromedad tx staking edit-validator \
 > Замість <Шлях до папки>, шлях до вашої папки куди зберегти, наприклад G:\Ноди\andromeda
 
 ```bash
-scp root@0.0.0.0:/root/.andromedad/config/priv_validator_key.json <Шлях до папки>
+scp root@0.0.0.0:/root/.nolus/config/priv_validator_key.json <Шлях до папки>
 ```
 ## Корисні команди
 [Зміст](https://github.com/muhaylosemenyuk/node_guides/tree/main/Andromeda#%D0%B7%D0%BC%D1%96%D1%81%D1%82)
 
 ##### Перезапустити ноду
 ```bash
-systemctl restart andromedad
+systemctl restart nolusd
 ```
 ##### Подивитись логи
 ```bash
-journalctl -u andromedad -f -o cat
+journalctl -u nolusd -f -o cat
 
 # Вихід з логів через ctrl+c
 ```
 ##### Перевірити статус синхронізації
 ```bash
-andromedad status 2>&1 | jq "{catching_up: .SyncInfo.catching_up}"
+nolusd status 2>&1 | jq "{catching_up: .SyncInfo.catching_up}"
 ```
 ##### Перевіряємо баланс
 ```bash
-andromedad q bank balances $ANDROMEDA_ADDRESS
+nolusd q bank balances $NOLUS_ADDRESS
 ```
 ##### Перевірити список гаманців
 ```bash
-andromedad keys list
+nolusd keys list
 ```
 ##### Зібрати реварди з усіх валідаторів, кому делегували (без комісій)
 ```bash
-andromedad tx distribution withdraw-all-rewards --from wallet -y
+nolusd tx distribution withdraw-all-rewards --from wallet -y
 ```
 ##### Зібрати реварди з окремого валідатора або реварди + комісію зі свого валідатора
 ```bash
-andromedad tx distribution withdraw-rewards $ANDROMEDA_VALOPER --from wallet --commission -y
+nolusd tx distribution withdraw-rewards $NOLUS_VALOPER --from wallet --commission -y
 ```
-##### Заделегувати у свого валідатора (1andr = 1000000uandr)
+##### Заделегувати у свого валідатора (1nls = 1000000unls)
 ```bash
-andromedad tx staking delegate $ANDROMEDA_VALOPER 1000000uandr --from wallet -y
+nolusd tx staking delegate $NOLUS_VALOPER 1000000unls --from wallet -y
 ```
 ##### Переделегувати на іншого валідатора
 ```bash
 # <src-validator-addr> - адреса валідатора з якого зняти делегацію
 # <dst-validator-addr> - адреса валідатора кому передати делегацію
-andromedad tx staking redelegate <src-validator-addr> <dst-validator-addr> 1000000uandr --from wallet -y
+nolusd tx staking redelegate <src-validator-addr> <dst-validator-addr> 1000000unls --from wallet -y
 ```
 ###### забрати делегацію 
 ```bash
-andromedad tx staking unbond $ANDROMEDA_VALOPER 1000000uandr --from wallet -y
+nolusd tx staking unbond $NOLUS_VALOPER 1000000unls --from wallet -y
 ```
 ##### Відправити монети на іншу адресу
 ```bash
 # <address> - куди відправити
-andromedad tx bank send wallet <address> 1000000uandr -y
+nolusd tx bank send wallet <address> 1000000unls -y
 ```
 ##### Вийти з тюрми
 ```bash
-andromedad tx slashing unjail --from wallet -y
+nolusd tx slashing unjail --from wallet -y
 ```
 ##### Проголосувати (замість 1 вказуємо номер пропозалу)
 ```bash
-andromedad tx gov vote 1 yes --from wallet -y
+nolusd tx gov vote 1 yes --from wallet -y
 ```
 ##### Перевірити чи проголосували
 ```bash
-andromedad q gov vote 1 $ANDROMEDA_ADDRESS
+nolusd q gov vote 1 $NOLUS_ADDRESS
 ```
 ## Видалити ноду
 [Зміст](https://github.com/muhaylosemenyuk/node_guides/tree/main/Andromeda#%D0%B7%D0%BC%D1%96%D1%81%D1%82)
 
 ```bash
-systemctl stop andromedad && \
-systemctl disable andromedad && \
-rm /etc/systemd/system/andromedad.service && \
+systemctl stop nolusd && \
+systemctl disable nolusd && \
+rm /etc/systemd/system/nolusd.service && \
 systemctl daemon-reload && \
 cd $HOME && \
-rm -rf .andromedad andromedad && \
-rm -rf $(which andromedad)
+rm -rf .nolus nolus && \
+rm -rf $(which nolusd)
 ```
