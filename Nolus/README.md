@@ -221,27 +221,25 @@ sudo journalctl -u nolusd -f --no-hostname -o cat
 [Зміст](https://github.com/muhaylosemenyuk/node_guides/tree/main/Andromeda#%D0%B7%D0%BC%D1%96%D1%81%D1%82)
 
 ```bash
-wget -O $HOME/.andromedad/config/addrbook.json "https://raw.githubusercontent.com/obajay/nodes-Guides/main/AndromedaProtocol/addrbook.json"
-systemctl restart andromedad && journalctl -u andromedad -f -o cat
+curl -s https://snapshots1-testnet.nodejumper.io/nolus-testnet/addrbook.json > $HOME/.nolus/config/addrbook.json
+sudo systemctl restart nolusd && sudo journalctl -u nolusd -f -o cat
 ```
-
-=================================================================================================================
 
 ## Гаманець
 [Зміст](https://github.com/muhaylosemenyuk/node_guides/tree/main/Andromeda#%D0%B7%D0%BC%D1%96%D1%81%D1%82)
 
 #### Створюємо гаманець
 ```bash
-andromedad keys add wallet
+nolusd keys add wallet
 ```
 #### Відновити гаманець
 ```bash
-andromedad keys add wallet --recover
+nolusd keys add wallet --recover
 ```
 #### Зберігаємо адресу
 ###### Замініть <your_address> на адресу вашого гаманця
 ```bash
-ANDROMEDA_ADDRESS=<your_address>
+NOLUS_ADDRESS=<your_address>
 echo "export ANDROMEDA_ADDRESS=$ANDROMEDA_ADDRESS" >> $HOME/.bash_profile
 source $HOME/.bash_profile
 ```
@@ -251,8 +249,11 @@ source $HOME/.bash_profile
     !request <your_address>
 #### Перевірити баланс
 ```bash
-andromedad q bank balances $ANDROMEDA_ADDRESS
+nolusd q bank balances $NOLUS_ADDRESS
 ```
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
 ## Валідатор
 [Зміст](https://github.com/muhaylosemenyuk/node_guides/tree/main/Andromeda#%D0%B7%D0%BC%D1%96%D1%81%D1%82)
 
