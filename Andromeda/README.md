@@ -6,6 +6,7 @@
 2. [Сервер](https://github.com/muhaylosemenyuk/node_guides/tree/main/Andromeda#%D1%81%D0%B5%D1%80%D0%B2%D0%B5%D1%80)
 3. [Нода](https://github.com/muhaylosemenyuk/node_guides/tree/main/Andromeda#%D0%BD%D0%BE%D0%B4%D0%B0)
 4. [Снапшот](https://github.com/muhaylosemenyuk/node_guides/tree/main/Andromeda#%D1%81%D0%BD%D0%B0%D0%BF%D1%88%D0%BE%D1%82)
+5. [State Sync]() 
 5. [Addrbook](https://github.com/muhaylosemenyuk/node_guides/tree/main/Andromeda#%D1%81%D0%BD%D0%B0%D0%BF%D1%88%D0%BE%D1%82)
 6. [Гаманець](https://github.com/muhaylosemenyuk/node_guides/tree/main/Andromeda#%D0%B3%D0%B0%D0%BC%D0%B0%D0%BD%D0%B5%D1%86%D1%8C)
 7. [Валідатор](https://github.com/muhaylosemenyuk/node_guides/tree/main/Andromeda#%D0%B2%D0%B0%D0%BB%D1%96%D0%B4%D0%B0%D1%82%D0%BE%D1%80)
@@ -180,6 +181,29 @@ rm -rf $HOME/.andromedad/data
 curl -o - -L http://andromedad.snapshot.stavr.tech:1021/andromedad/andromedad-snap.tar.lz4 | lz4 -c -d - | tar -x -C $HOME/.andromedad --strip-components 2
 curl -o - -L http://andromedad.wasm.stavr.tech:1002/wasm-andromedad.tar.lz4 | lz4 -c -d - | tar -x -C $HOME/.andromedad --strip-components 2
 mv $HOME/.andromedad/priv_validator_state.json.backup $HOME/.andromedad/data/priv_validator_state.json
+```
+## State Sync
+[Зміст](https://github.com/muhaylosemenyuk/node_guides/tree/main/Andromeda#%D0%B7%D0%BC%D1%96%D1%81%D1%82)
+```bash
+sudo systemctl stop andromedad
+andromedad tendermint unsafe-reset-all --home $HOME/.andromedad --keep-addr-book 
+
+STATE_SYNC_RPC="http://161.97.148.146:60657"
+
+LATEST_HEIGHT=$(curl -s $STATE_SYNC_RPC/block | jq -r .result.block.header.height)
+SYNC_BLOCK_HEIGHT=$(($LATEST_HEIGHT - 2000))
+SYNC_BLOCK_HASH=$(curl -s "$STATE_SYNC_RPC/block?height=$SYNC_BLOCK_HEIGHT" | jq -r .result.block_id.hash)
+
+sed -i \
+  -e "s|^enable *=.*|enable = true|" \
+  -e "s|^rpc_servers *=.*|rpc_servers = \"$STATE_SYNC_RPC,$STATE_SYNC_RPC\"|" \
+  -e "s|^trust_height *=.*|trust_height = $SYNC_BLOCK_HEIGHT|" \
+  -e "s|^trust_hash *=.*|trust_hash = \"$SYNC_BLOCK_HASH\"|" \
+  -e "s|^persistent_peers *=.*|persistent_peers = \"$STATE_SYNC_PEER\"|" \
+  $HOME/.andromedad/config/config.toml
+  
+# Перезагрузка
+sudo systemctl restart andromedad && sudo journalctl -u andromedad -f -o cat
 ```
 ## Addrbook
 [Зміст](https://github.com/muhaylosemenyuk/node_guides/tree/main/Andromeda#%D0%B7%D0%BC%D1%96%D1%81%D1%82)
