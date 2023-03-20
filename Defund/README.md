@@ -148,7 +148,7 @@ defundd status 2>&1 | jq "{catching_up: .SyncInfo.catching_up}"
 ## Addrbook
 ```bash
 curl -Ls https://snapshots.kjnodes.com/defund-testnet/addrbook.json > $HOME/.defund/config/addrbook.json
-sudo systemctl restart quasarnoded && sudo journalctl -u quasarnoded -f -o cat
+sudo systemctl restart defundd && sudo journalctl -u defundd -f -o cat
 ```
 ## Гаманець
 #### Створюємо гаманець
