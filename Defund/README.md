@@ -36,7 +36,7 @@ rm -rf defund
 git clone https://github.com/defund-labs/defund.git
 cd defund
 git checkout v0.2.6
-make build
+make install
 ```
 #### Перевіряємо версію
 ```bash
