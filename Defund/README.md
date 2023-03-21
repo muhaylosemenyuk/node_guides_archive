@@ -24,7 +24,7 @@ DEFUND_MONIKER=<your_moniker>
 ```
 #### Зберігаємо перемінні в bash
 ```bash
-echo 'export DEFUND_MONIKER=='$DEFUND_MONIKER >> $HOME/.bash_profile
+echo 'export DEFUND_MONIKER='$DEFUND_MONIKER >> $HOME/.bash_profile
 echo "export DEFUND_CHAIN_ID=orbit-alpha-1" >> $HOME/.bash_profile
 echo "export DEFUND_PORT=13" >> $HOME/.bash_profile
 source $HOME/.bash_profile
