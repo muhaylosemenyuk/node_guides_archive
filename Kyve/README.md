@@ -82,3 +82,13 @@ kyved tx staking create-validator \
  --moniker $KYVE_MONIKER \
  --chain-id kaon-1
 ```
+## Видалити ноду
+```bash
+systemctl stop kyved && \
+systemctl disable kyved && \
+rm /etc/systemd/system/kyved.service && \
+systemctl daemon-reload && \
+cd $HOME && \
+rm -rf .kyve && \
+rm -rf $(which kyved)
+```
